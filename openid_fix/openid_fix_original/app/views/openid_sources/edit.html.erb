@@ -1,0 +1,7 @@
+<h2><%= l(:label_openid_source) %>: <%= h(@openid_source.name) %></h2>
+
+<% form = form_tag({ :action => 'update', :id => @openid_source }, :method => :put, :class => 'tabular') do %>
+  <%= render(:partial => 'form') %>
+  <%= submit_tag(l(:button_save)) %>
+<% end %>
+<%= form if Rails::VERSION::MAJOR >= 3 %>

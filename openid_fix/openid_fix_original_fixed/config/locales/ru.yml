@@ -1,0 +1,9 @@
+ru:
+  label_openid_authentication: Авторизация с помощью OpenID
+  label_openid_source_new: Новый источник OpenID
+  label_openid_source: Источник OpenID
+  label_openid_source_plural: Источники OpenID
+
+  setting_url_verification: Проверять OpenID URL
+
+  notice_invalid_openid_source: Неизвестный источник OpenID

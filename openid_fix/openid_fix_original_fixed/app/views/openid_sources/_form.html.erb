@@ -1,0 +1,16 @@
+<%= error_messages_for('openid_source') %>
+
+<div class="box">
+  <p>
+    <label for="openid_source_name"><%= l(:field_name) %> <span class="required">*</span></label>
+    <%= text_field('openid_source', 'name') %>
+  </p>
+  <p>
+    <label for="openid_source_url"><%= l(:field_url) %> <span class="required">*</span></label>
+    <%= text_field('openid_source', 'url', :size => 60) %>
+  </p>
+  <p>
+    <label for="openid_source_active"><%= l(:field_active) %></label>
+    <%= check_box('openid_source', 'active') %>
+  </p>
+</div>

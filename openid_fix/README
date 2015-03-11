@@ -1,0 +1,6 @@
+Fixes for Rails 4.2 (based on 0.20 version of opendid_fix) :
+- Use of .order instead of all(:order)
+- ActiveRecord::Relation instead of [] which is more standard
+- validates_format_of doesn't accept a REGEX starting whith ^. Replace with \A (start of line)
+- Scopes must be turned into lambdas
+- In route.rb match needs to specify http (:get and :post)

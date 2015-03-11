@@ -1,0 +1,9 @@
+en:
+  label_openid_authentication: OpenID authentication
+  label_openid_source_new: New OpenID source
+  label_openid_source: OpenID source
+  label_openid_source_plural: OpenID sources
+
+  setting_url_verification: Verify OpenID URL
+
+  notice_invalid_openid_source: Invalid OpenID source

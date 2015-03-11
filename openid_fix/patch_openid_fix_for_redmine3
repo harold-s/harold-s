@@ -1,0 +1,54 @@
+diff -ruN openid_fix_original/app/controllers/openid_sources_controller.rb openid_fix_original_fixed/app/controllers/openid_sources_controller.rb
+--- openid_fix_original/app/controllers/openid_sources_controller.rb	2015-03-11 11:10:56.694666122 +0100
++++ openid_fix_original_fixed/app/controllers/openid_sources_controller.rb	2015-03-11 11:33:48.254679090 +0100
+@@ -7,7 +7,7 @@
+     before_filter :require_admin
+ 
+     def index
+-        @openid_sources = OpenidSource.all(:order => :name) || []
++        @openid_sources = OpenidSource.all.order(:name) || OpenidSource.none
+     end
+ 
+     def new
+diff -ruN openid_fix_original/app/models/openid_source.rb openid_fix_original_fixed/app/models/openid_source.rb
+--- openid_fix_original/app/models/openid_source.rb	2015-03-11 11:10:56.702666122 +0100
++++ openid_fix_original_fixed/app/models/openid_source.rb	2015-03-11 11:21:38.334672188 +0100
+@@ -3,16 +3,18 @@
+ 
+     validates_presence_of :name, :url
+     validates_length_of :name, :in => 1..NAME_MAX_LENGTH
+-    validates_format_of :url, :with => %r{^https?://}i
++    validates_format_of :url, :with => %r{\Ahttps?://}i
+ 
+     if Rails::VERSION::MAJOR < 3
+         named_scope :active, { :conditions => { :active => true } }
++    elsif Rails::VERSION::MAJOR < 4
++      scope :active, { :conditions => { :active => true } }
+     else
+-        scope :active, { :conditions => { :active => true } }
++      scope :active, -> { where(active: true) }
+     end
+ 
+     def users
+-        User.all(:conditions => [ "#{User.table_name}.identity_url LIKE :openid_url", { :openid_url => url_pattern } ])
++      User.where("#{User.table_name}.identity_url LIKE :openid_url", { :openid_url => url_pattern })
+     end
+ 
+     def url_pattern
+diff -ruN openid_fix_original/config/routes.rb openid_fix_original_fixed/config/routes.rb
+--- openid_fix_original/config/routes.rb	2015-03-11 11:10:56.674666121 +0100
++++ openid_fix_original_fixed/config/routes.rb	2015-03-11 11:12:21.978666928 +0100
+@@ -11,10 +11,10 @@
+ 
+ else
+ 
+-    match('openid_sources',          :to => 'openid_sources#index')
+-    match('openid_sources/new',      :to => 'openid_sources#new')
++    match('openid_sources',          :to => 'openid_sources#index', via: [:get, :post])
++    match('openid_sources/new',      :to => 'openid_sources#new', via: [:get, :post])
+     post('openid_sources/create',    :to => 'openid_sources#create')
+-    match('openid_sources/:id/edit', :to => 'openid_sources#edit')
++    match('openid_sources/:id/edit', :to => 'openid_sources#edit', via: [:get, :post])
+     put('openid_sources/:id',        :to => 'openid_sources#update')
+     delete('openid_sources/:id',     :to => 'openid_sources#destroy')
+ 

@@ -1,0 +1,14 @@
+<% self_registration = @settings[:self_registration] %>
+<% self_registration = Setting.self_registration == '2' ? '2' : '3' if self_registration.nil? %>
+
+<p>
+  <%= label_tag('settings[self_registration]', l(:setting_self_registration)) %>
+  <%= select_tag('settings[self_registration]', options_for_select([[l(:label_no_change_option), ''],
+                                                                    [l(:label_registration_activation_by_email), '1'],
+                                                                    [l(:label_registration_manual_activation), '2'],
+                                                                    [l(:label_registration_automatic_activation), '3']], self_registration)) %>
+</p>
+<p>
+  <%= label_tag('settings[url_verification]', l(:setting_url_verification)) %>
+  <%= check_box_tag('settings[url_verification]', 1, @settings[:url_verification]) %>
+</p>
