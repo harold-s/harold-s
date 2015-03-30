@@ -1,5 +1,7 @@
 # intl-tel-input-french-translation
 
+Issue on intl-tel-input's repository : https://github.com/Bluefieldscom/intl-tel-input/issues/191
+
 The aim is to create a translation for the library intl-tel-input (https://github.com/Bluefieldscom/intl-tel-input)
 The English country list comes from intl-tel-input library.
 The French country list comes from http://www.buddyweb.fr/extensions/ (ISO 3166-1 alpha-2 list)
